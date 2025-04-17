@@ -1,34 +1,60 @@
-// setupOrderTable.js
-import connectDB from './connectDB.js';
+import mongoose from 'mongoose'
 
-const createOrderTable = () => {
-  const sql = `
-    CREATE TABLE IF NOT EXISTS orders (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      userId INT,
-      orderId VARCHAR(100),
-      product_details JSON,
-      payment_id VARCHAR(100),
-      payment_status VARCHAR(50),
-      delivery_address JSON,
-      delivery_status VARCHAR(50),
-      subTotalAmt DECIMAL(10,2),
-      totalAmt DECIMAL(10,2),
-      invoice_receipt VARCHAR(255),
-      createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      FOREIGN KEY (userId) REFERENCES users(id)
-    );
-  `;
+const orderSchema = new mongoose.Schema({
+  userId:
+  {
+    type:mongoose.Schema.ObjectId,
+    ref:'User'
+  },
+  oredrId:{
+    type:String,
+    required:[true, "provide orderId"],
+    unique: true
+  },
+  productId:
+  {
+    type:mongoose.Schema.ObjectId,
+    ref:'product'
+  },
+  product_details:
+  {
+    name:String,
+    image:Array
+  },
+  paymentId:
+  {
+    type:String,
+    default:""
+  },
+  payment_status:
+  {
+    type:String,
+    default:""
+  },
+  delivery_address:
+  {
+    type:mongoose.Schema.ObjectId,
+    ref:'address'
+  },
+  subTotalAmt:
+  {
+    type:Number,
+    default:0
+  },
+  totalAmt:{
+    type:Number,
+    default:0
+  },
+  invoice_receipt:{
+    type:String,
+    default:""
+  }
 
-  connectDB.query(sql, (err, result) => {
-    if (err) {
-      console.error("❌ Error creating orders table:", err);
-    } else {
-      console.log("✅ Orders table created or already exists.");
-    }
-  });
-};
-// jdhfd
+},
+{
+  timestamps:true
+})
 
-createOrderTable();
+const OrderModel = mongoose.model('order',orderSchema)
+
+export default OrderModel
