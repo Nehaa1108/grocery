@@ -8,7 +8,7 @@ const userRouter = Router()
 userRouter.post('/register',registerUserController)
 
 export default userRouter
-
+console.log("k")
 
 // Verify Email API--
 userRouter.post('/verify-email',verifyEmailController)
