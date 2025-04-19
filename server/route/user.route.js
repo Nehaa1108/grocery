@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { registerUserController, verifyEmailController } from '../controller/user.controller.js'
+import { loginController , logoutController, registerUserController, verifyEmailController } from '../controller/user.controller.js'
+import auth from '../middleware/auth.js'
 const userRouter = Router()
 
 
@@ -15,3 +16,7 @@ userRouter.post('/verify-email',verifyEmailController)
 
 
 // Login API--
+userRouter.post('/login',loginController)
+
+//Logout API--
+userRouter.get('/logout',auth,logoutController)

@@ -189,6 +189,16 @@ export async function loginController(req,res) {
   try{
     const { email, password } =req.body
 
+
+    if(!email || !password)
+    {
+      return res.status(400).json({
+        message:"provide email ,password",
+        error:true,
+        success:false
+      })
+    }
+
     const user =  await UserModel.findOne({email})
 
     if(!user)
@@ -220,8 +230,27 @@ export async function loginController(req,res) {
     }
 
     //access token
-    const accesstoken = await generatedAccessToken(user._id)
+    const accessToken = await generatedAccessToken(user._id)
     const refreshToken = await generatedRefreshToken(user._id)
+
+    const cookiesOption={
+      httpOnly:true,
+      secure:true,
+      //use both frontend and backend site
+      sameSite:"None"
+    }
+    res.cookie('accessToken',accessToken,cookiesOption)
+    res.cookie('refreshToken',refreshToken,cookiesOption)
+
+    return res.json({
+      message:"Login Successfully",
+      error:false,
+      success:true,
+      data:{
+        accessToken,
+        refreshToken
+      }
+    })
   }
   catch (error)
   {
@@ -229,6 +258,50 @@ export async function loginController(req,res) {
       message: error.message || error,
       error: true,
       success: false
+    })
+  }
+}
+
+//Logout Controller
+export async function logoutController(req,res)
+{
+  try{
+
+    const userid = req.userId //come from middleware
+
+
+    const cookiesOption={
+      httpOnly:true,
+      secure:true,
+      //use both frontend and backend site
+      sameSite:"None"
+    }
+
+    res.clearCookie("accessToken",cookiesOption)
+    res.clearCookie("refreshToken",cookiesOption)
+
+//identify the user
+//login refresh token show 
+//logout refresh token empty
+const removeRefreshToken = await UserModel.findByIdAndUpdate(userid,{
+  refresh_token: ""
+})
+
+
+    return res.json(
+      {
+        message:"Logout Successfully",
+        error:false,
+        success:true
+      }
+    )
+  }
+  catch(error)
+  {
+    return res.status(500).json({
+      message:error.message || error,
+      error:true,
+      success:false
     })
   }
 }

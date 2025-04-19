@@ -49,6 +49,8 @@ app.get("/",(req,res)=>
 
 app.use('/api/user',userRouter)
 
+
+
 connectDB()
 
 
