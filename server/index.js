@@ -58,3 +58,73 @@ app.listen(PORT,()=>
 {
   console.log("server is running ",PORT)
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //2
+// FRONTEND_URL = "http://localhost:3000"
+
+//  MONGODB_URI=mongodb+srv://Admin:mongoDB1108@grocify.okrltm1.mongodb.net/?retryWrites=true&w=majority&appName=Grocify
+// #  mongodb+srv://Admin:mongoDB1108@grocify.okrltm1.mongodb.net/?retryWrites=true&w=majority&appName=Grocify
+
+//  RESEND_API = re_f8QnCVim_9pfQuHz4qUDeeoZyu57dQhPQ
+
+// SECRET_KEY_ACCESS_TOKEN=qwertyuiopasdfghjklzxcvbnm
+
+// SECRET_KEY_REFRESH_TOKEN=mnbvcxzlkjhgfdsapoiuytrewq
+
+// CLOUDINARY_CLOUD_NAME= dd5jfshk5
+
+// CLOUDINARY_API_KEY = 299758856489998
+
+// CLOUDINARY_API_SECRET_KEY = vAUYw4mUGot7W6EaXzVeBjWAk0Q
+// #  npm install resend 
+
+
+// # DB_HOST=localhost
+// # DB_USER=root
+// # DB_PASSWORD="Mysql@1108"
+// # DB_NAME=groceryshop
+// # DB_PORT=3306
+
+
+
+// # autogenerate password --->MAE48nsrQysE5w11
